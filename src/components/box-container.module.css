@@ -1,15 +1,15 @@
 .container {
-  cursor: pointer;
-  border: 2px solid #d1cccc;
+  /* border: 2px solid #282c34; */
   display: inline-block;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
   vertical-align: middle;
   padding: 0;
   margin: 0;
   text-align: center;
   font-weight: bold;
+  font-size: 60px;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
    -khtml-user-select: none; /* Konqueror HTML */

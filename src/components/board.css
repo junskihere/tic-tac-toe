@@ -1,0 +1,4 @@
+
+.nes-table.is-dark::before {
+  display: none !important;
+}

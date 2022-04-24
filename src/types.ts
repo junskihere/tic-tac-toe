@@ -6,8 +6,10 @@ export interface Children {
 
 export interface MyContext {
   board: string[][];
+  winner: string;
   updateBoard: Function;
   resetBoard: Function;
+  setIsBot: Function;
 }
 
 

@@ -1,4 +1,4 @@
-import { cp } from 'fs';
+
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Children, Coordinates, MyContext } from '../types';
 
@@ -11,8 +11,11 @@ const initialBoard: string[][] = [
 
 const initialContext = {
   board: initialBoard,
+  winner: '',
   updateBoard: () => { },
-  resetBoard: () => { }
+  resetBoard: () => { },
+  setIsBot: () => { },
+
 };
 
 const BoardContext = createContext(initialContext as MyContext);
@@ -23,9 +26,13 @@ export function BoardProvider({ children }: Children) {
   const [board, setBoard] = useState<string[][]>(initialBoard);
   const [lastValue, setLastValue] = useState<string>('x');
   const [winner, setWinner] = useState<string>('');
-  const [isBot, setIsBot] = useState<boolean>(true);
+  const [isBot, setIsBot] = useState<boolean>(false);
   const [isBotsTurn, setIsBotsTurn] = useState<boolean>(false)
   const [lastCoordinate, setLastCoordinate] = useState<Coordinates | null>(null);
+
+  useEffect(() => {
+    resetBoard();
+  }, [isBot])
 
   useEffect(() => {
     if (winner !== '') {
@@ -88,6 +95,7 @@ export function BoardProvider({ children }: Children) {
       const { row, col } = lastCoordinate;
       const oldValue = lastValue === 'x' ? 'o' : 'x';
       let coordinates = null;
+
       if (checker({ row, col: col + 1 }, oldValue) && board[row][col + 1] === '') {
         coordinates = { row, col: col + 1 };
       } else if (checker({ row, col: col - 1 }, oldValue) && board[row][col - 1] === '') {
@@ -269,7 +277,7 @@ export function BoardProvider({ children }: Children) {
   }
 
   return (
-      <BoardContext.Provider value={{board, updateBoard, resetBoard}}>
+      <BoardContext.Provider value={{board, updateBoard, resetBoard, setIsBot, winner}}>
         {children}
       </BoardContext.Provider>
       

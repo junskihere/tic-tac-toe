@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './box-container.module.css';
-import { BoxProps } from './types';
+import { BoxProps } from '../types';
 
 
 
