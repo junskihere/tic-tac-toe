@@ -33,10 +33,10 @@ const SettingsComponent = () => {
     </div>
     <br />
     {
-      !isBot && <div className="nes-field">
+      !isBot ? <div className="nes-field">
         <label htmlFor="name_field">Player 2 name</label>
         <input type="text" id="name_field" className="nes-input" />
-      </div>
+      </div> : <div>Playing with bot.</div>
     }
   </div>
 }
