@@ -3,6 +3,7 @@ import { useBoard } from '../context/board';
 import styles from './settings.module.css';
 
 const SettingsComponent = () => {
+  const isBot = useBoard().isBot;
   const resetBoard = useBoard().resetBoard;
   const setIsBot = useBoard().setIsBot;
 
@@ -25,6 +26,18 @@ const SettingsComponent = () => {
     <div>
       <button type="button" className="nes-btn ">Game History</button>
     </div>
+    <br />
+    <div className="nes-field">
+      <label htmlFor="name_field">Player 1 name</label>
+      <input type="text" id="name_field" className="nes-input" />
+    </div>
+    <br />
+    {
+      !isBot && <div className="nes-field">
+        <label htmlFor="name_field">Player 2 name</label>
+        <input type="text" id="name_field" className="nes-input" />
+      </div>
+    }
   </div>
 }
 
