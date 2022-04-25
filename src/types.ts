@@ -8,7 +8,7 @@ export interface MyContext {
   board: string[][];
   winner: string;
   isBot: boolean;
-  players: Player[] | null;
+  players: Player[];
   updateBoard: Function;
   resetBoard: Function;
   setIsBot: Function;
@@ -28,11 +28,13 @@ export interface BoxProps {
 }
 
 export interface Game {
+  id: number;
   players: Player[];
   date: string;
-  winner: Player
+  winner: string[]
 }
 
 export interface Player {
   name: string;
+  character: string;
 }

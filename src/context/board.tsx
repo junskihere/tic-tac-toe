@@ -1,6 +1,6 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Children, Coordinates, MyContext, Player } from '../types';
+import { Children, Coordinates, Game, MyContext, Player } from '../types';
 
 const initialBoard: string[][] = [
   ['', '', ''],
@@ -11,7 +11,7 @@ const initialBoard: string[][] = [
 const initialContext = {
   board: initialBoard,
   winner: '',
-  players: null,
+  players: [{ name: '', character: 'x' }, { name: '', character: 'o' }],
   isBot: false,
   setPlayers: () => {},
   updateBoard: () => { },
@@ -30,16 +30,29 @@ export function BoardProvider({ children }: Children) {
   const [isBot, setIsBot] = useState<boolean>(false);
   const [isBotsTurn, setIsBotsTurn] = useState<boolean>(false)
   const [lastCoordinate, setLastCoordinate] = useState<Coordinates | null>(null);
-  const [players, setPlayers] = useState<Player[] | null>(null);
+  const [players, setPlayers] = useState<Player[]>(initialContext.players);
+  const [gameId, setGameId] = useState<number>();
+
+  useEffect(() => {
+    if (!gameId) {
+      setGameId(Math.random())
+    }
+  },[gameId])
 
   useEffect(() => {
     resetBoard();
   }, [isBot])
 
   useEffect(() => {
-    if (winner !== '') {
-      console.log(winner, 'is the winner')
+    if (winner !== '' && gameId) {
+      saveGameToLocalStorage(gameId, {
+        id: gameId,
+        players,
+        date: new Date().toLocaleString(),
+        winner: [winner],
+      } )
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winner])
 
   useEffect(() => {
@@ -49,10 +62,22 @@ export function BoardProvider({ children }: Children) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isBotsTurn]);
 
+  const saveGameToLocalStorage = (key: number, value: Game) => {
+    const oldGame = localStorage.getItem(key.toString());
+    if (!oldGame) {
+      localStorage.setItem(key.toString(), JSON.stringify(value));
+    } else {
+      const game: Game = JSON.parse(oldGame);
+      game.winner.push(value.winner[0])
+      localStorage.setItem(key.toString(), JSON.stringify(game));
+    }
+
+  }
+
   const resetBoard = () => {
     setWinner('');
     setLastCoordinate(null);
-
+    setLastValue('x')
     setBoard( [
       ['', '', ''],
       ['', '', ''],
