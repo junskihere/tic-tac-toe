@@ -1,0 +1,55 @@
+.container {
+  position: fixed;
+  top:0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(68, 68, 68, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.content {
+  background: #fff;
+  border-radius:  10px;
+  padding: 10px;
+  text-align: left;
+  height: 400px;
+  min-width: 400px;
+  overflow-y: hidden;
+  position: relative;
+}
+
+table, .table-container {
+  overflow: auto;
+  height: 280px;
+  overflow-y: auto;
+}
+
+table > thead {
+  color: #fff;
+  background-color: rebeccapurple;
+}
+
+table > thead > tr {
+  color: #fff;
+  position: sticky;
+  top: 0;
+  background-color: rebeccapurple;
+  z-index: 999;
+}
+
+.table-body {
+  height: 280px;
+  min-width: 400px;
+  overflow-y: auto;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+}
